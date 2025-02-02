@@ -1,0 +1,8 @@
+# Ignora tutte le cartelle
+*/
+
+# Escludi la cartella specifica1
+!api/
+
+# Escludi la cartella specifica2
+!test/
