@@ -41,7 +41,7 @@ def step1(): return "hello world"
 def step2(data): return data.upper()
 
 # Create pipeline
-pipeline = Pipeline([
+PIPELINE = Pipeline([
     Step(step1),
     Step(step2)]
 )
