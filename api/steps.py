@@ -109,3 +109,46 @@ class MailNotification(Step):
         if name == 'status':
             return None
         return self.__getattr__(name)
+
+class RetryStep(Step):
+    def __init__(self, func, retries: int = 3, delay: int = 1000):
+        super().__init__(func)
+        self.retries = retries
+        self.delay = delay
+
+    def run(self, input_data: Optional[Any] = None) -> Any:
+        attempt = 0
+        while attempt < self.retries:
+            try:
+                return super().run(input_data)
+            except Exception as e:
+                attempt += 1
+                if attempt < self.retries:
+                    import time
+                    print(f"Attempt {attempt} failed. Retrying in {self.delay} ms ...")
+                    time.sleep(self.delay/1000)
+                else:
+                    print(f"Attempt {attempt} failed. Giving up.")
+                    raise e
+
+class InteractiveStep(Step):
+
+    def run(self, input_data: Optional[Any] = None) -> Any:
+        options = {1: 'Continue', 2: 'Abort'}
+        print("Available options:")
+        for idx, option in options.items():
+            print(f"{idx}. {option}")
+
+        choice = input(f"Please select an option (1-{len(options)}): ")
+
+        while not (choice.isdigit() and 1 <= int(choice) <= len(options)):
+            print('Invalid choice, please select an actual option (1 or 2).')
+            choice = input(f"Please select an option (1-{len(options)}): ")
+
+        choice = int(choice)
+        if choice == 1:
+            return super().run(input_data)
+        elif choice == 2:
+            from api.alfred import Pipeline
+            Pipeline.abort()
+            return None

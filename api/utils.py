@@ -20,3 +20,13 @@ def archive_artifact(path: str, copy: bool = False):
 
 def get_artifact(artifact: str):
     return Pipeline.archive.get(artifact, None)
+
+def interactive_choice(msg: str):
+    options = ['Continue', 'Abort']
+    msg = msg if msg is not None else f"Please select an option (1-{len(options)}): "
+    choice = input(msg)
+    if choice.isdigit() and 1 <= int(choice) <= len(options):
+        print(f"You selected: {options[int(choice)-1]}")
+    else:
+        print("Invalid selection, using default behavior.")
+    
