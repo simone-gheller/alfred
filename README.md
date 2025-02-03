@@ -34,7 +34,7 @@ pip install -r requirements.txt
 3. Create your own pipeline by defining steps and executing them:
 
 ```python
-from api.alfred import *
+from api.alfred import Step, Pipeline, run_pipeline
 
 # Define your steps
 def step1(): return "hello world"
@@ -43,8 +43,8 @@ def step2(data): return data.upper()
 # Create pipeline
 PIPELINE = Pipeline([
     Step(step1),
-    Step(step2)]
-)
+    Step(step2)
+])
 
 # Run it!
 run_pipeline()

@@ -1,11 +1,11 @@
 # import sys
 # from os import path
 # sys.path.append(path.abspath(path.join(path.dirname(__file__), "..")))
-from api.alfred import Step, Pipeline, run_pipeline
-from api.steps import OnFailure
-from api.git import clone
-from api.shell import Shell
-from api.utils import set_working_directory
+from alfred.api.alfred import Step, Pipeline, run_pipeline
+from alfred.api.steps import OnFailure
+from alfred.api.git import clone
+from alfred.api.shell import Shell
+from alfred.api.utils import set_working_directory
 
 def checkout():
     return clone(repo_url='https://github.com/simone-gheller/blango.git',

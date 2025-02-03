@@ -27,30 +27,24 @@ from api.loggers import get_logger
 logger = get_logger()
 
 class Pipeline:
-
     _instance = None
-    archive = {}
-    status = status.SUCCESS
 
-    def __new__(cls, steps: list = None):
+    def __new__(cls, steps):
         if cls._instance is None:
-            cls._instance = super().__new__(cls)
-            cls._instance.steps = steps
-            folder = os.path.abspath(os.path.splitext(os.path.basename(
-                inspect.currentframe().f_back.f_locals.get('__file__')))[0])
-            if not os.path.exists(folder): os.mkdir(folder)
-            cls.work_dir = folder
+            cls._instance = super(Pipeline, cls).__new__(cls)
         return cls._instance
-
-    def __init__(self, steps: list = None):
-        if not hasattr(self, 'steps'):
-            self.steps = steps
-            self.status = status.SUCCESS
+    
+    def __init__(self, steps: list = []):
+        self.steps = steps
+        self.work_dir = os.path.abspath(os.path.splitext(os.path.basename(
+            inspect.currentframe().f_back.f_locals.get('__file__')))[0])
+        self.archive = {}
+        self.status = status.SUCCESS
 
     @staticmethod
     def abort() -> None:
         Pipeline.status = status.ABORTED
-        logger.info("🚨 Pipeline aborted by user.")  # Log dell'abort solo qui
+        logger.info("🚨 Pipeline aborted by user.")
 
     def execute(self) -> Any:
         logger.info("🚀 Starting pipeline execution...")
@@ -64,7 +58,6 @@ class Pipeline:
             if Pipeline.status == status.SUCCESS:
                 logger.info("✅ Pipeline execution completed successfully.")
             return data
-
         except Exception as e:
             self.status = status.FAILURE
             logger.error("❌ Uh-oh, something went wrong")

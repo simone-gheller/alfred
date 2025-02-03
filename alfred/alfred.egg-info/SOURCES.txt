@@ -1,0 +1,15 @@
+setup.py
+alfred.egg-info/PKG-INFO
+alfred.egg-info/SOURCES.txt
+alfred.egg-info/dependency_links.txt
+alfred.egg-info/requires.txt
+alfred.egg-info/top_level.txt
+api/__init__.py
+api/alfred.py
+api/config.py
+api/git.py
+api/loggers.py
+api/shell.py
+api/status.py
+api/steps.py
+api/utils.py

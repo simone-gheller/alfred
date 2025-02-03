@@ -1,8 +1,10 @@
-# Ignora tutte le cartelle
-*/
+/*
 
-# Escludi la cartella specifica1
-!api/
+!/api/
+!/test/
+!/agent/
+!/agent/**/
+!/alfred/
 
-# Escludi la cartella specifica2
-!test/
+__pycache__/
+*.pyc

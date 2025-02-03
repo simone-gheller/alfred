@@ -1,8 +1,8 @@
 # import sys
 # from os import path
 # sys.path.append(path.abspath(path.join(path.dirname(__file__), "..")))
-from api.alfred import Step, Pipeline, run_pipeline
-from api.shell import Shell
+from alfred.api.alfred import Step, Pipeline, run_pipeline
+from alfred.api.shell import Shell
 
 def step1():
     return "hello world"
@@ -24,7 +24,8 @@ def step_script():
 PIPELINE = Pipeline([
     Step(step1),
     Step(step2),
-    Step(step_script)
+    Step(step_script),
+    Step(step_e)
 ])
 
 if __name__ == '__main__':
