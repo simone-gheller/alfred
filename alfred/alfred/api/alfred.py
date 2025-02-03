@@ -1,7 +1,27 @@
+import os
+from alfred.api.status import status
+from alfred.api.loggers import init_logging, get_logger
+
+def run_pipeline():
+    folder = Pipeline.work_dir
+    if not os.path.exists(folder):
+        os.mkdir(folder)
+    init_logging(folder)
+    try:
+        return Pipeline.execute()
+    except KeyboardInterrupt:
+        logger = get_logger()
+        logger.error("🚨 Pipeline interrupted by user via KeyboardInterrupt (Ctrl+C).")
+        print("\nPipeline execution was interrupted. Exiting gracefully...")
+        Pipeline.status = status.ABORTED
+    except Exception:
+        return Exception("Pipeline execution aborted due to error.")
+    
+
 import os, inspect
 from typing import Any
-from api.loggers import get_logger
-from api.status import status
+from alfred.api.loggers import get_logger
+from alfred.api.status import status
 logger = get_logger()
 
 class Pipeline:
@@ -39,7 +59,7 @@ class Pipeline:
         except Exception as e:
             cls.status = status.FAILURE
             logger.error("❌ Uh-oh, something went wrong")
-            from api.steps import OnFailure
+            from alfred.api.steps import OnFailure
             failure_steps = [s for s in cls.steps if isinstance(s, OnFailure)]
             try:
                 for s in failure_steps:
@@ -49,3 +69,5 @@ class Pipeline:
                 logger.exception(e)
             logger.exception(e)
             raise e
+        
+from alfred.api.steps import Step

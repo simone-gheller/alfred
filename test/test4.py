@@ -7,7 +7,7 @@ from alfred.api.steps import RetryStep, InteractiveStep
 
 def checkout():
     return clone(repo_url='https://github.com/simone-gheller/blango.git',
-                    destination_dir='blaghelito/blango5', 
+                    destination_dir='blaghelito/blango1', 
                     branch='master')
     
 def fail():

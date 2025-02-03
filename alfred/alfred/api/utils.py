@@ -1,5 +1,5 @@
 import os
-from api.pipeline import Pipeline
+from alfred.api.alfred import Pipeline
 
 def set_working_directory(directory: str):
     if not os.path.exists(directory):

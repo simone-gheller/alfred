@@ -1,9 +1,9 @@
 import inspect
 from typing import Any, Optional, Callable
-from api.status import status
-from api.loggers import get_logger
-from api.config import CONFIG
-from api.pipeline import Pipeline
+from alfred.api.status import status
+from alfred.api.loggers import get_logger
+from alfred.api.config import CONFIG
+from alfred.api.alfred import Pipeline
 
 logger = get_logger()
 

@@ -1,6 +1,6 @@
 import subprocess, os
 from enum import Enum
-from api.loggers import get_logger
+from alfred.api.loggers import get_logger
 
 logger = get_logger()
 
