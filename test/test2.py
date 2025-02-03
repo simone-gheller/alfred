@@ -1,7 +1,5 @@
-# import sys
-# from os import path
-# sys.path.append(path.abspath(path.join(path.dirname(__file__), "..")))
-from alfred.api.alfred import Step, Pipeline, run_pipeline
+# test/test2.py
+from alfred.api.alfred import Step, run_pipeline, Pipeline
 from alfred.api.steps import OnFailure
 from alfred.api.git import clone
 from alfred.api.shell import Shell
@@ -9,7 +7,7 @@ from alfred.api.utils import set_working_directory
 
 def checkout():
     return clone(repo_url='https://github.com/simone-gheller/blango.git',
-                    destination_dir='blaghelito/blango3', 
+                    destination_dir='blaghelito/blango2', 
                     branch='master')
     
 def cd_print(path):
@@ -22,10 +20,10 @@ def fail():
 def get_insight():
     Shell.run("echo suca")
 
-PIPELINE = Pipeline([
+# Inizializzazione globale
+Pipeline([
     Step(checkout),
     Step(cd_print),
-    # Step("fail", fail),
     OnFailure(get_insight)
 ])
 

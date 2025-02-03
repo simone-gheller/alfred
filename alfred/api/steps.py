@@ -3,6 +3,7 @@ from typing import Any, Optional, Callable
 from api.status import status
 from api.loggers import get_logger
 from api.config import CONFIG
+from api.pipeline import Pipeline
 
 logger = get_logger()
 
@@ -149,6 +150,5 @@ class InteractiveStep(Step):
         if choice == 1:
             return super().run(input_data)
         elif choice == 2:
-            from api.alfred import Pipeline
             Pipeline.abort()
             return None

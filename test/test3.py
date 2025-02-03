@@ -8,7 +8,7 @@ from alfred.api.utils import set_working_directory, archive_artifact, get_artifa
 
 def checkout():
     return clone(repo_url='https://github.com/simone-gheller/blango.git',
-                    destination_dir='blaghelito/blango4', 
+                    destination_dir='blaghelito/blango2', 
                     branch='master')
     
 def archive(repo):
